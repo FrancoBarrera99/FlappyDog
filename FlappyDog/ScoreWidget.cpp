@@ -38,4 +38,5 @@ void ScoreWidget::Render()
 void ScoreWidget::Restart()
 {
 	Update();
+	Render();
 }

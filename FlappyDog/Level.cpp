@@ -51,6 +51,7 @@ void Level::Restart()
 	for (Pipe* pipe : pipes) {
 		pipe->Restart();
 	}
+	Render();
 
 	pipesIndex = 1;
 }

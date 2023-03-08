@@ -19,6 +19,9 @@
     <Filter Include="Resource Files\Textures">
       <UniqueIdentifier>{c485b757-4f1e-4869-bdf7-55c784f35ba8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Resource Files\Audio">
+      <UniqueIdentifier>{b16c06ea-436e-4272-a2d2-97ab955f5bfe}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">

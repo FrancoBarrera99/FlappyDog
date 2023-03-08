@@ -5,7 +5,7 @@
 #include "Defs.h"
 #include "ScoreWidget.h"
 #include <SDL_ttf.h>
-
+#include <SDL_mixer.h>
 
 Game* Game::gameInstance = nullptr;
 
@@ -22,7 +22,13 @@ Game::~Game()
 	SDL_DestroyRenderer(renderer);
 	SDL_DestroyWindow(window);
 
+	//Destroy audio
+	Mix_FreeChunk(endAudio);
+	Mix_FreeChunk(flightAudio);
+	Mix_FreeChunk(pointAudio);
+
 	//Quit SDL subsystems
+	Mix_CloseAudio();
 	IMG_Quit();
 	SDL_Quit();
 }
@@ -49,13 +55,13 @@ int Game::GetScore()
 }
 void Game::IncreaseScore()
 {
+	Mix_PlayChannel(-1, pointAudio, 0);
 	score += 1;
 }
 void Game::EndGame()
 {
+	Mix_PlayChannel(-1, endAudio, 0);
 	paused = true;
-
-	//show restart UI
 }
 void Game::Restart()
 {
@@ -64,8 +70,6 @@ void Game::Restart()
 	dog->Restart();
 	level->Restart();
 	scoreWidget->Restart();
-
-	//hide restart UI
 
 	paused = false;
 };
@@ -95,9 +99,10 @@ bool Game::Initialize()
 {
 	bool bSuccessfullyInitialized = true;
 
+	/* -------------------VIDEO-----------------------*/
 	if (SDL_Init(SDL_INIT_VIDEO) < 0)
 	{
-		printf("SDL could not initialize: %s\n", SDL_GetError());
+		printf("SDL_Video could not initialize: %s\n", SDL_GetError());
 		return bSuccessfullyInitialized = false;
 	}
 	
@@ -119,6 +124,7 @@ bool Game::Initialize()
 
 	SDL_SetRenderDrawColor(renderer, 0xFF, 0xFF, 0xFF, 0xFF);
 
+	/* -------------------IMAGE-----------------------*/
 	int imgFlag = IMG_INIT_PNG;
 
 	if (!(IMG_Init(imgFlag) & imgFlag))
@@ -127,11 +133,26 @@ bool Game::Initialize()
 		return bSuccessfullyInitialized = false;
 	}
 
+	/* -------------------TFF-----------------------*/
 	if (TTF_Init() < 0) 
 	{
 		printf("TTF could not initialize: %s\n", TTF_GetError());
 		return bSuccessfullyInitialized = false;
 	}
+
+	/* -------------------AUDIO-----------------------*/
+	if (SDL_Init(SDL_INIT_AUDIO) < 0)
+	{
+		printf("SDL_Audio could not initialize: %s\n", SDL_GetError());
+		return bSuccessfullyInitialized = false;
+	}
+
+	Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048);
+
+	//Load audio files
+	pointAudio = Mix_LoadWAV("./Resources/Audio/PointAudio.wav");
+	endAudio = Mix_LoadWAV("./Resources/Audio/EndAudio.wav");
+	flightAudio = Mix_LoadWAV("./Resources/Audio/FlightAudio.wav");
 
 	return bSuccessfullyInitialized;
 }
@@ -146,21 +167,22 @@ void Game::HandleEvents(SDL_Event& event)
 			break;
 
 		case SDL_KEYDOWN:
-			
 			switch (event.key.keysym.sym) {
 			case SDLK_SPACE:
-				dog->Flight();
+				if (!paused) {
+					Mix_PlayChannel(-1, flightAudio, 0);
+					dog->Flight();
+				}
 				break;
 
 			case SDLK_r:
 				if (paused) {
 					Restart();
 				}
+				break;
 			default:
 				break;
 			}
-
-
 			break;
 
 		default:

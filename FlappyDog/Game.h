@@ -9,6 +9,7 @@ class Dog;
 class Level;
 class Defs;
 class ScoreWidget;
+class Mix_Chunk;
 
 class Game
 {
@@ -26,6 +27,11 @@ protected:
 
 	SDL_Window* window;
 	SDL_Renderer* renderer;
+
+	Mix_Chunk* pointAudio;
+	Mix_Chunk* endAudio;
+	Mix_Chunk* flightAudio;
+
 
 	Uint32 lastFrameTicks;
 	Uint32 currentTicks;

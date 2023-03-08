@@ -41,6 +41,7 @@ void Dog::Restart()
 {
     position.y = 100;
     velocity = 0;
+    Render();
 }
 
 void Dog::Flight()
