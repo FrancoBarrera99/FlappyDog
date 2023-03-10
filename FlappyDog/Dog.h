@@ -8,11 +8,15 @@ class Dog : public GameObject
 {
 protected:
 
-	SDL_Texture* texture;
+	std::vector<SDL_Texture*> textures;
 	SDL_Rect position;
+
 	double velocity;
 	double gravity;
 	double flightForce;
+
+	int textureIndex;
+	double lastTextureUpdateTime;
 
 public:
 

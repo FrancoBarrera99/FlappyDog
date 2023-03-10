@@ -2,15 +2,19 @@
 #include "Defs.h"
 
 Dog::Dog() : 
-	texture(nullptr), position({100, 100, 50, 50}), velocity(0), gravity(1500), flightForce(100)
+	position({100, 100, 50, 50}), velocity(0), gravity(1500), flightForce(100), textureIndex(0), lastTextureUpdateTime(0)
 {
     renderer = Game::GetGameInstance()->GetRenderer();
-    texture = IMG_LoadTexture(renderer, "./Resources/Textures/Dog.png");
+    textures.push_back(IMG_LoadTexture(renderer, "./Resources/Textures/Dog.png"));
+    textures.push_back(IMG_LoadTexture(renderer, "./Resources/Textures/Dog1.png"));
+
 }
 
 Dog::~Dog()
 {
-	SDL_DestroyTexture(texture);
+    for (SDL_Texture* texture : textures) {
+        SDL_DestroyTexture(texture);
+    }
 }
 
 void Dog::Update(double deltaTime)
@@ -20,7 +24,7 @@ void Dog::Update(double deltaTime)
 
     // Keeps dog on screen
     int textureHeight, textureWidth;
-    SDL_QueryTexture(texture, nullptr, nullptr, &textureWidth, &textureHeight);
+    SDL_QueryTexture(textures[textureIndex], nullptr, nullptr, &textureWidth, &textureHeight);
 
     if (position.y < textureHeight / 2) {
         position.y = textureHeight / 2;
@@ -30,11 +34,18 @@ void Dog::Update(double deltaTime)
         position.y = SCREEN_HEIGHT - textureHeight;
         velocity = 0;
     }
+
+    lastTextureUpdateTime += deltaTime;
+    if (lastTextureUpdateTime > 0.25)
+    {
+        textureIndex = (textureIndex == 0) ? 1 : 0;
+        lastTextureUpdateTime = 0;
+    }
 }
 
 void Dog::Render()
 {
-	SDL_RenderCopy(renderer, texture, nullptr, &position);
+	SDL_RenderCopy(renderer, textures[textureIndex], nullptr, &position);
 }
 
 void Dog::Restart()
