@@ -71,20 +71,24 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>D:\Dev\FlappyDog\SDL2_mixer-devel-2.6.3-VC\SDL2_mixer-2.6.3\include;D:\Dev\FlappyDog\SDL2_ttf-devel-2.20.2-VC\SDL2_ttf-2.20.2\include;D:\Dev\FlappyDog\SDL2_image-devel-2.6.3-VC\SDL2_image-2.6.3\include;$(IncludePath)</IncludePath>
+    <IncludePath>D:\Dev\FlappyDog\FlappyDog\FlappyDog\include;D:\Dev\FlappyDog\SDL2_mixer-devel-2.6.3-VC\SDL2_mixer-2.6.3\include;D:\Dev\FlappyDog\SDL2_ttf-devel-2.20.2-VC\SDL2_ttf-2.20.2\include;D:\Dev\FlappyDog\SDL2_image-devel-2.6.3-VC\SDL2_image-2.6.3\include;$(IncludePath)</IncludePath>
     <LibraryPath>D:\Dev\FlappyDog\SDL2_mixer-devel-2.6.3-VC\SDL2_mixer-2.6.3\lib\x64;D:\Dev\FlappyDog\SDL2_ttf-devel-2.20.2-VC\SDL2_ttf-2.20.2\lib\x64;D:\Dev\FlappyDog\SDL2_image-devel-2.6.3-VC\SDL2_image-2.6.3\lib\x64;$(LibraryPath)</LibraryPath>
+    <SourcePath>D:\Dev\FlappyDog\FlappyDog\FlappyDog\src;$(SourcePath)</SourcePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <IncludePath>D:\Dev\FlappyDog\SDL2_mixer-devel-2.6.3-VC\SDL2_mixer-2.6.3\include;D:\Dev\FlappyDog\SDL2_ttf-devel-2.20.2-VC\SDL2_ttf-2.20.2\include;D:\Dev\FlappyDog\SDL2_image-devel-2.6.3-VC\SDL2_image-2.6.3\include;$(IncludePath)</IncludePath>
+    <IncludePath>D:\Dev\FlappyDog\FlappyDog\FlappyDog\include;D:\Dev\FlappyDog\SDL2_mixer-devel-2.6.3-VC\SDL2_mixer-2.6.3\include;D:\Dev\FlappyDog\SDL2_ttf-devel-2.20.2-VC\SDL2_ttf-2.20.2\include;D:\Dev\FlappyDog\SDL2_image-devel-2.6.3-VC\SDL2_image-2.6.3\include;$(IncludePath)</IncludePath>
     <LibraryPath>D:\Dev\FlappyDog\SDL2_mixer-devel-2.6.3-VC\SDL2_mixer-2.6.3\lib\x64;D:\Dev\FlappyDog\SDL2_ttf-devel-2.20.2-VC\SDL2_ttf-2.20.2\lib\x64;D:\Dev\FlappyDog\SDL2_image-devel-2.6.3-VC\SDL2_image-2.6.3\lib\x64;$(LibraryPath)</LibraryPath>
+    <SourcePath>D:\Dev\FlappyDog\FlappyDog\FlappyDog\src;$(SourcePath)</SourcePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>D:\Dev\FlappyDog\SDL2_mixer-devel-2.6.3-VC\SDL2_mixer-2.6.3\include;D:\Dev\FlappyDog\SDL2_ttf-devel-2.20.2-VC\SDL2_ttf-2.20.2\include;D:\Dev\FlappyDog\SDL2_image-devel-2.6.3-VC\SDL2_image-2.6.3\include;$(IncludePath)</IncludePath>
+    <IncludePath>D:\Dev\FlappyDog\FlappyDog\FlappyDog\include;D:\Dev\FlappyDog\SDL2_mixer-devel-2.6.3-VC\SDL2_mixer-2.6.3\include;D:\Dev\FlappyDog\SDL2_ttf-devel-2.20.2-VC\SDL2_ttf-2.20.2\include;D:\Dev\FlappyDog\SDL2_image-devel-2.6.3-VC\SDL2_image-2.6.3\include;$(IncludePath)</IncludePath>
     <LibraryPath>D:\Dev\FlappyDog\SDL2_mixer-devel-2.6.3-VC\SDL2_mixer-2.6.3\lib\x64;D:\Dev\FlappyDog\SDL2_ttf-devel-2.20.2-VC\SDL2_ttf-2.20.2\lib\x64;D:\Dev\FlappyDog\SDL2_image-devel-2.6.3-VC\SDL2_image-2.6.3\lib\x64;$(LibraryPath)</LibraryPath>
+    <SourcePath>D:\Dev\FlappyDog\FlappyDog\FlappyDog\src;$(SourcePath)</SourcePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <IncludePath>D:\Dev\FlappyDog\SDL2_mixer-devel-2.6.3-VC\SDL2_mixer-2.6.3\include;D:\Dev\FlappyDog\SDL2_ttf-devel-2.20.2-VC\SDL2_ttf-2.20.2\include;D:\Dev\FlappyDog\SDL2_image-devel-2.6.3-VC\SDL2_image-2.6.3\include;$(IncludePath)</IncludePath>
+    <IncludePath>D:\Dev\FlappyDog\FlappyDog\FlappyDog\include;D:\Dev\FlappyDog\SDL2_mixer-devel-2.6.3-VC\SDL2_mixer-2.6.3\include;D:\Dev\FlappyDog\SDL2_ttf-devel-2.20.2-VC\SDL2_ttf-2.20.2\include;D:\Dev\FlappyDog\SDL2_image-devel-2.6.3-VC\SDL2_image-2.6.3\include;$(IncludePath)</IncludePath>
     <LibraryPath>D:\Dev\FlappyDog\SDL2_mixer-devel-2.6.3-VC\SDL2_mixer-2.6.3\lib\x64;D:\Dev\FlappyDog\SDL2_ttf-devel-2.20.2-VC\SDL2_ttf-2.20.2\lib\x64;D:\Dev\FlappyDog\SDL2_image-devel-2.6.3-VC\SDL2_image-2.6.3\lib\x64;$(LibraryPath)</LibraryPath>
+    <SourcePath>D:\Dev\FlappyDog\FlappyDog\FlappyDog\src;$(SourcePath)</SourcePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -155,24 +159,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Dog.cpp" />
-    <ClCompile Include="Game.cpp" />
-    <ClCompile Include="GameObject.cpp" />
-    <ClCompile Include="Level.cpp" />
-    <ClCompile Include="main.cpp" />
-    <ClCompile Include="Pipe.cpp" />
-    <ClCompile Include="ScoreWidget.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="Defs.h" />
-    <ClInclude Include="Dog.h" />
-    <ClInclude Include="Game.h" />
-    <ClInclude Include="GameObject.h" />
-    <ClInclude Include="Level.h" />
-    <ClInclude Include="Pipe.h" />
-    <ClInclude Include="ScoreWidget.h" />
-  </ItemGroup>
-  <ItemGroup>
     <Image Include="Resources\Textures\Background.png" />
     <Image Include="..\..\BotPipe.png" />
     <Image Include="..\..\Dog.png" />
@@ -181,6 +167,24 @@
   </ItemGroup>
   <ItemGroup>
     <Font Include="Expo-Bold.otf" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="include\Defs.h" />
+    <ClInclude Include="include\Dog.h" />
+    <ClInclude Include="include\Game.h" />
+    <ClInclude Include="include\GameObject.h" />
+    <ClInclude Include="include\Level.h" />
+    <ClInclude Include="include\Pipe.h" />
+    <ClInclude Include="include\ScoreWidget.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\Dog.cpp" />
+    <ClCompile Include="src\Game.cpp" />
+    <ClCompile Include="src\GameObject.cpp" />
+    <ClCompile Include="src\Level.cpp" />
+    <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\Pipe.cpp" />
+    <ClCompile Include="src\ScoreWidget.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
