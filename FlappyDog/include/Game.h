@@ -4,6 +4,8 @@
 #include <string>
 #include <vector>
 #include <SDL_image.h>
+#include <mutex>;
+#include <queue>
 
 class Dog;
 class Level;
@@ -17,13 +19,16 @@ class Game
 private:
 
 	static Game* gameInstance;
+	static std::mutex instanceMutex;
 
 protected:
 
 	bool running;
 	bool paused;
-
 	int score;
+	Uint32 lastFrameTicks;
+	Uint32 currentTicks;
+	double deltaTime;
 
 	SDL_Window* window;
 	SDL_Renderer* renderer;
@@ -32,22 +37,25 @@ protected:
 	Mix_Chunk* endAudio;
 	Mix_Chunk* flightAudio;
 
-
-	Uint32 lastFrameTicks;
-	Uint32 currentTicks;
-
 	Level* level;
 	Dog* dog;
 	ScoreWidget* scoreWidget;
 
-	double deltaTime;
+
+	std::queue<SDL_Event> eventsQueue;
+	std::mutex eventsMutex;
+	std::condition_variable cvDraw;
 
 	Game();
 	~Game();
 
 	bool Initialize();
 
-	void HandleEvents(SDL_Event& event);
+	void PollEvents(SDL_Event& event);
+
+	void HandleEvents();
+
+	void Draw();
 
 	void Update();
 
@@ -60,7 +68,6 @@ protected:
 	void RenderGameObjects();
 
 	void RenderUI();
-
 
 public:
 

@@ -6,18 +6,25 @@
 #include "ScoreWidget.h"
 #include <SDL_ttf.h>
 #include <SDL_mixer.h>
+#include <SDL_thread.h>
 
-Game* Game::gameInstance = nullptr;
+Game * Game::gameInstance = nullptr;
+std::mutex Game::instanceMutex;
 
 Game::Game() :
 	window(nullptr), renderer(nullptr), running(false), paused(false), score(0), lastFrameTicks(0),
-	currentTicks(0), deltaTime(0),dog(nullptr)
+	currentTicks(0), deltaTime(0), dog(nullptr)
 {
 	running = Initialize();
 }
 
-Game::~Game() 
+Game::~Game()
 {
+	//Destroy Objects
+	delete dog;
+	delete level;
+	delete scoreWidget;
+
 	//Destroy window    
 	SDL_DestroyRenderer(renderer);
 	SDL_DestroyWindow(window);
@@ -35,6 +42,8 @@ Game::~Game()
 
 Game* Game::GetGameInstance()
 {
+	std::lock_guard<std::mutex> lock(instanceMutex);
+
 	if (gameInstance == nullptr)
 	{
 		gameInstance = new Game();
@@ -49,20 +58,24 @@ SDL_Renderer* Game::GetRenderer() const {
 Dog* Game::GetDog() {
 	return dog;
 }
+
 int Game::GetScore()
 {
 	return score;
 }
+
 void Game::IncreaseScore()
 {
 	Mix_PlayChannel(-1, pointAudio, 0);
 	score += 1;
 }
+
 void Game::EndGame()
 {
 	Mix_PlayChannel(-1, endAudio, 0);
 	paused = true;
 }
+
 void Game::Restart()
 {
 	score = 0;
@@ -76,8 +89,6 @@ void Game::Restart()
 
 void Game::Run()
 {
-	SDL_Event event;
-
 	//Create GameObjects
 	dog = new Dog();
 	level = new Level();
@@ -85,14 +96,15 @@ void Game::Run()
 	//Create UI
 	scoreWidget = new ScoreWidget();
 
+	std::thread drawThread(&Game::Draw, this);
+	SDL_Event event;
+
 	while (running)
 	{
-		HandleEvents(event);
-		Update();
-		Render();
-
-		SDL_Delay(12);
+		PollEvents(event);
 	}
+
+	drawThread.join();
 }
 
 bool Game::Initialize()
@@ -105,13 +117,13 @@ bool Game::Initialize()
 		printf("SDL_Video could not initialize: %s\n", SDL_GetError());
 		return bSuccessfullyInitialized = false;
 	}
-	
-	window = SDL_CreateWindow("Flappy Dog", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
+
+	window = SDL_CreateWindow("Flappy Dog", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_RESIZABLE);
 
 	if (window == nullptr)
 	{
-			printf("Window could not be created: %s\n", SDL_GetError());
-			return bSuccessfullyInitialized = false;
+		printf("Window could not be created: %s\n", SDL_GetError());
+		return bSuccessfullyInitialized = false;
 	}
 
 	renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
@@ -134,7 +146,7 @@ bool Game::Initialize()
 	}
 
 	/* -------------------TFF-----------------------*/
-	if (TTF_Init() < 0) 
+	if (TTF_Init() < 0)
 	{
 		printf("TTF could not initialize: %s\n", TTF_GetError());
 		return bSuccessfullyInitialized = false;
@@ -157,44 +169,64 @@ bool Game::Initialize()
 	return bSuccessfullyInitialized;
 }
 
-void Game::HandleEvents(SDL_Event& event)
+void Game::PollEvents(SDL_Event& event)
 {
-	if (SDL_PollEvent(&event)) {
-
-		switch (event.type) {
-		case SDL_QUIT:
-			running = false;
-			break;
-
-		case SDL_KEYDOWN:
-			switch (event.key.keysym.sym) {
-			case SDLK_SPACE:
-				if (!paused) {
-					Mix_PlayChannel(-1, flightAudio, 0);
-					dog->Flight();
-				}
-				break;
-
-			case SDLK_r:
-				if (paused) {
-					Restart();
-				}
-				break;
-			default:
-				break;
-			}
-			break;
-
-		default:
-			break;
-		}
+	if (SDL_PollEvent(&event))
+	{
+		std::unique_lock<std::mutex> lock(eventsMutex);
+		eventsQueue.push(event);
 	}
+}
+
+void Game::HandleEvents()
+{
+	std::unique_lock<std::mutex> lock(eventsMutex);
+
+	while (!eventsQueue.empty()) {
+		SDL_Event event = eventsQueue.front();
+
+		if (event.type == SDL_QUIT) {
+			running = false;
+			eventsQueue.pop();
+			return;
+		}
+
+		if (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_SPACE && !paused)
+		{
+			Mix_PlayChannel(-1, flightAudio, 0);
+			dog->Flight();
+			eventsQueue.pop();
+			return;
+		}
+
+		if (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_r && paused)
+		{
+			Restart();
+			eventsQueue.pop();
+			return;
+		}
+
+		eventsQueue.pop();
+	}
+}
+
+void Game::Draw()
+{
+	while (running) {
+
+		HandleEvents();
+		Update();
+		Render();
+
+		SDL_Delay(16);
+	}
+
 }
 
 void Game::Update()
 {
 	//Calculate deltaTime
-	currentTicks = SDL_GetTicks();
+	currentTicks = SDL_GetTicks64();
 	deltaTime = (currentTicks - lastFrameTicks) / 1000.0f;
 	lastFrameTicks = currentTicks;
 
@@ -236,4 +268,3 @@ void Game::RenderUI()
 {
 	scoreWidget->Render();
 }
-
