@@ -1,0 +1,16 @@
+[submodule "FlappyDog/SDL"]
+	path = FlappyDog/SDL
+	url = https://github.com/libsdl-org/SDL.git
+	branch = SDL2
+[submodule "FlappyDog/SDL_image"]
+	path = FlappyDog/SDL_image
+	url = https://github.com/libsdl-org/SDL_image.git
+	branch = release-2.6.x
+[submodule "FlappyDog/SDL_mixer"]
+	path = FlappyDog/SDL_mixer
+	url = https://github.com/libsdl-org/SDL_mixer.git
+	branch = release-2.6.x
+[submodule "FlappyDog/SDL_ttf"]
+	path = FlappyDog/SDL_ttf
+	url = https://github.com/libsdl-org/SDL_ttf.git
+	branch = release-2.20.x
