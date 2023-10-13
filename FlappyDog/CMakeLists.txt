@@ -43,16 +43,10 @@ target_include_directories( ${PROJECT_NAME}
 )
 
 # SDL install
-set( SDL2_DISABLE_INSTALL ON )
-set( SDL2IMAGE_INSTALL OFF )
-set( SDL2TTF_INSTALL OFF )
-set( SDL2MIXER_INSTALL OFF )
-
-# Include external subdirectories
-add_subdirectory( ${EXTERNAL_DIR}/SDL )
-add_subdirectory( ${EXTERNAL_DIR}/SDL_ttf )
-add_subdirectory( ${EXTERNAL_DIR}/SDL_image )
-add_subdirectory( ${EXTERNAL_DIR}/SDL_mixer )
+set( SDL2_DISABLE_INSTALL ON CACHE BOOL "" FORCE )
+set( SDL2IMAGE_INSTALL OFF CACHE BOOL "" FORCE )
+set( SDL2TTF_INSTALL OFF CACHE BOOL "" FORCE )
+set( SDL2MIXER_INSTALL OFF CACHE BOOL "" FORCE )
 
 # Copy game resources to output directory post build
 add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
@@ -104,6 +98,12 @@ add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
         $<TARGET_FILE:SDL2_mixer::SDL2_mixer>
         $<TARGET_FILE_DIR:${PROJECT_NAME}>
 )
+
+# Include external subdirectories
+add_subdirectory( ${EXTERNAL_DIR}/SDL )
+add_subdirectory( ${EXTERNAL_DIR}/SDL_ttf )
+add_subdirectory( ${EXTERNAL_DIR}/SDL_image )
+add_subdirectory( ${EXTERNAL_DIR}/SDL_mixer )
 
 # Link submodules libraries
 target_link_libraries( ${PROJECT_NAME}

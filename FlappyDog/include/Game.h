@@ -4,7 +4,7 @@
 #include <string>
 #include <vector>
 #include <SDL_image.h>
-#include <mutex>;
+#include <mutex>
 #include <queue>
 
 class Dog;

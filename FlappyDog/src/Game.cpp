@@ -6,7 +6,7 @@
 #include "ScoreWidget.h"
 #include <SDL_ttf.h>
 #include <SDL_mixer.h>
-#include <SDL_thread.h>
+#include <thread>
 
 Game * Game::gameInstance = nullptr;
 std::mutex Game::instanceMutex;
