@@ -6,6 +6,7 @@
 #include <SDL_image.h>
 #include <mutex>
 #include <queue>
+#include <condition_variable>
 
 class Dog;
 class Level;
