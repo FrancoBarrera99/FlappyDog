@@ -3,7 +3,7 @@
 #include "Defs.h"
 
 ScoreWidget::ScoreWidget():
-	position({(SCREEN_WIDTH/2 - SCORE_WIDTH/2), 30, SCORE_HEIGHT, SCORE_WIDTH})
+	position({(SCREEN_WIDTH/2 - SCORE_WIDTH/2), 30, SCORE_HEIGHT, SCORE_WIDTH}), textTexture(nullptr)
 {
 	renderer = Game::GetGameInstance()->GetRenderer();
 	font = TTF_OpenFont("./Resources/Fonts/Expo-Bold.otf", 50);
