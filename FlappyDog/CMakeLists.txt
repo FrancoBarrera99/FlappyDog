@@ -1,4 +1,4 @@
-cmake_minimum_required( VERSION 3.27.6 )
+cmake_minimum_required( VERSION 3.27.6 FATAL_ERROR )
 project( FlappyDog )
 
 set( CMAKE_CXX_STANDARD 17 )
@@ -8,6 +8,12 @@ set( SOURCES_DIR  "src" )
 set( RESOURCES_DIR  "${CMAKE_SOURCE_DIR}/Resources" )
 set( INCLUDE_DIR  "include" )
 set( EXTERNAL_DIR "external" )
+set( BIN_DIR "${CMAKE_BINARY_DIR}/bin" )
+set( LIB_DIR "${CMAKE_BINARY_DIR}/lib" )
+
+# Set output files directories
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${BIN_DIR})
+set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${LIB_DIR})
 
 # Add executable
 add_executable( ${PROJECT_NAME} )
