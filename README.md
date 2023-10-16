@@ -11,9 +11,19 @@ Flappy Dog is a Flappy Bird-style game developed in C++ with SDL2.
 
 ## Installation
 
-###Windows
+### Windows
 
-###Unix
+- Clone the repository *git clone --recursive https://github.com/FrancoBarrera99/FlappyDog.git*
+- Change directory to the CMakeLists.txt path *cd .\FlappyDog\FlappyDog\/*
+- Create a build directory *mkdir build*
+- Change directory to build *cd .\build\/*
+- Run CMake configuration *cmake ..*
+- Open Visual Studio .sln
+- Build your desire configuration
+- Change directory to output files path *cd .\bin\/{configuration}\/*. For example, if you use *Debug* the path would be *.\build\bin\Debug\/*
+- Run FlappyDog.exe *.\FlappyDog.exe*
+
+### Unix
 
 
 ## Acknowledgments
