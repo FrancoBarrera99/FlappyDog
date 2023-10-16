@@ -52,11 +52,7 @@ protected:
 
 	bool Initialize();
 
-	void PollEvents(SDL_Event& event);
-
-	void HandleEvents();
-
-	void Draw();
+	void HandleEvents(SDL_Event& event);
 
 	void Update();
 

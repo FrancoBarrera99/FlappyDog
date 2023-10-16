@@ -96,15 +96,16 @@ void Game::Run()
 	//Create UI
 	scoreWidget = new ScoreWidget();
 
-	std::thread drawThread(&Game::Draw, this);
 	SDL_Event event;
 
 	while (running)
 	{
-		PollEvents(event);
-	}
+		HandleEvents(event);
+		Update();
+		Render();
 
-	drawThread.join();
+		SDL_Delay(16);
+	}
 }
 
 bool Game::Initialize()
@@ -169,25 +170,12 @@ bool Game::Initialize()
 	return bSuccessfullyInitialized;
 }
 
-void Game::PollEvents(SDL_Event& event)
+void Game::HandleEvents(SDL_Event& event)
 {
-	if (SDL_PollEvent(&event))
-	{
-		std::unique_lock<std::mutex> lock(eventsMutex);
-		eventsQueue.push(event);
-	}
-}
-
-void Game::HandleEvents()
-{
-	std::unique_lock<std::mutex> lock(eventsMutex);
-
-	while (!eventsQueue.empty()) {
-		SDL_Event event = eventsQueue.front();
+	if (SDL_PollEvent(&event)) {
 
 		if (event.type == SDL_QUIT) {
 			running = false;
-			eventsQueue.pop();
 			return;
 		}
 
@@ -195,32 +183,15 @@ void Game::HandleEvents()
 		{
 			Mix_PlayChannel(-1, flightAudio, 0);
 			dog->Flight();
-			eventsQueue.pop();
 			return;
 		}
 
 		if (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_r && paused)
 		{
 			Restart();
-			eventsQueue.pop();
 			return;
 		}
-
-		eventsQueue.pop();
 	}
-}
-
-void Game::Draw()
-{
-	while (running) {
-
-		HandleEvents();
-		Update();
-		Render();
-
-		SDL_Delay(16);
-	}
-
 }
 
 void Game::Update()
