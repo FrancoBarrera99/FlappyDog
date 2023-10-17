@@ -14,24 +14,24 @@ Flappy Dog is a Flappy Bird-style game developed in C++ with SDL2.
 ### Windows
 
 - Clone the repository **"git clone --recursive https://github.com/FrancoBarrera99/FlappyDog.git"**
-- Change directory to the CMakeLists.txt path **"cd .\FlappyDog\FlappyDog\"**
+- Change directory to the CMakeLists.txt path **"cd .\FlappyDog\FlappyDog"**
 - Create a build directory **"mkdir build"**
-- Change directory to build **"cd .\build\"**
+- Change directory to build **"cd .\build"**
 - Run CMake configuration **"cmake .."**
 - Open Visual Studio .sln
 - Build your desire configuration
-- Change directory to output files path **"cd .\bin\yourConfiguration\"**. For example, if you use **Debug** the path would be **".\build\bin\Debug\"**
+- Change directory to output files path **"cd .\bin\yourConfiguration"**. For example, if you use **Debug**, replace yourConfiguration so the path would be **".\build\bin\Debug"**
 - Run FlappyDog.exe **".\FlappyDog.exe"**
 
 ### Linux
 
 - Clone the repository **"git clone --recursive https://github.com/FrancoBarrera99/FlappyDog.git"**
-- Change directory to the CMakeLists.txt path **"cd ./FlappyDog/FlappyDog/"**
+- Change directory to the CMakeLists.txt path **"cd ./FlappyDog/FlappyDog"**
 - Create a build directory **"mkdir build"**
-- Change directory to build **"cd ./build/"**
+- Change directory to build **"cd ./build"**
 - Run CMake configuration **"cmake .."**
 - Build the project **"make"**
-- Change directory to output files path **"cd ./bin/{configuration}/"**. For example, if you use **Debug** the path would be **"./build/bin/Debug/"**
+- Change directory to output files path **"cd ./bin/yourConfiguration"**. For example, if you use **Debug**, replace yourConfiguration so the path would be **"./build/bin/Debug"**
 - Run FlappyDog.exe **"./FlappyDog.exe"**
 
 ## Acknowledgments
